@@ -1,0 +1,11 @@
+import os
+
+def rename_files():
+    file_list = os.listdir(r"E:\nanodegree\full-stack-nanodegree\full_stack_web\2. Renamer")
+    saved_path = os.getcwd()
+    os.chdir(r"E:\nanodegree\full-stack-nanodegree\full_stack_web\2. Renamer")
+    for fname in file_list:
+        os.rename(fname, fname.translate(None, "0123456789- ()Copy"))
+    os.chdir(saved_path)
+
+rename_files()
