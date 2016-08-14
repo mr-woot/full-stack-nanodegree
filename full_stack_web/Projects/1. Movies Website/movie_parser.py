@@ -14,7 +14,7 @@ url = "http://api.themoviedb.org/3/movie/popular?api_key=" + api_key
 movies = []
 
 # getting data upto 5 pages of the end-point
-for i in range(1, 6):
+for i in range(1, 3):
     # api-page link
     link = url + "&page=" + str(i)
     
