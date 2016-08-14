@@ -1,2 +1,5 @@
-# full-stack-nanodegree
+# Full Stack Nanodegree
+
 FSND Assignments and Projects
+
+License @[MIT](LICENSE)
