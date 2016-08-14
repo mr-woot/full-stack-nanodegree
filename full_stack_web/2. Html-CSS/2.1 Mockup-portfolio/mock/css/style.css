@@ -89,3 +89,11 @@
     width: 342px;
     height: 250px;
 }
+
+.pull-right {
+    text-align: right;
+}
+
+.font-change {
+    font-family: 'Kanit', sans-serif;
+}
