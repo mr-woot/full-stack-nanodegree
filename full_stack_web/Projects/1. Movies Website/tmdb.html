@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Project 1!</title>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+        body {
+            padding-top: 80px;
+        }
+        #movieinfo .modal-dialog {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            width: 640px;
+            height: auto;
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #movie-info {
+            width: 100%;
+            height: 100%;
+        }
+        .movie-tile {
+            margin-bottom: 20px;
+            padding-top: 20px;
+        }
+        .movie-tile:hover {
+            background-color: #EEE;
+            cursor: pointer;
+        }
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media div {
+            border: none;
+            padding: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: white;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        //// Whenever the info modal is opened
+        $(document).on('click', '.movie-tile', function (event) {
+            var title_data          = $(this).attr('data-title')
+            var vote_average_data   = $(this).attr('data-vote')
+            var release_date_data   = $(this).attr('data-date')
+            var overview_data       = $(this).attr('data-overview')
+            var image_url           = $(this).attr('data-image-url')
+            $("#movie-info-container").empty().append($("<div>" +
+                "<img src="             + image_url         + "</img>"  +
+                "<h3>Title: "           + title_data        + "</h3>"   +
+                "<h4>Rating: "          + vote_average_data + "</h3>"   +
+                "<h4>Release Date: "    + release_date_data + "</h3>"   +
+                "<p><b>Storyline:</b> " + overview_data     + "</p>"   +
+                "</div>", {
+              'id': 'movie-info',
+              'type': 'text-html'
+            }));
+        });
+        //// Animate in the movies when the page loads
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("slow", function showNext() {
+            $(this).next("div").show("fast", showNext);
+          });
+        });
+    </script>
+</head>
+
+  <body>
+    <!-- Movie Info Modal -->
+    <div class="modal" id="movieinfo">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="movie-info-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Page Content -->
+    <div class="container">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" style="color: #32cd32" href="#">Check this</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row">
+          
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg"
+        data-title="Suicide Squad"
+        data-vote="5.97"
+        data-date="2016-08-03"
+        data-overview="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg" width="220" height="342">
+    <h4>Suicide Squad</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//lFSSLTlFozwpaGlO31OoUeirBgQ.jpg"
+        data-title="Jason Bourne"
+        data-vote="5.24"
+        data-date="2016-07-27"
+        data-overview="The most dangerous former operative of the CIA is drawn out of hiding to uncover hidden truths about his past."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//lFSSLTlFozwpaGlO31OoUeirBgQ.jpg" width="220" height="342">
+    <h4>Jason Bourne</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//cGOPbv9wA5gEejkUN892JrveARt.jpg"
+        data-title="Batman v Superman: Dawn of Justice"
+        data-vote="5.52"
+        data-date="2016-03-23"
+        data-overview="Fearing the actions of a god-like Super Hero left unchecked, Gotham City’s own formidable, forceful vigilante takes on Metropolis’s most revered, modern-day savior, while the world wrestles with what sort of hero it really needs. And with Batman and Superman at war with one another, a new threat quickly arises, putting mankind in greater danger than it’s ever known before."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//cGOPbv9wA5gEejkUN892JrveARt.jpg" width="220" height="342">
+    <h4>Batman v Superman: Dawn of Justice</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//vOipe2myi26UDwP978hsYOrnUWC.jpg"
+        data-title="The Jungle Book"
+        data-vote="6.43"
+        data-date="2016-04-07"
+        data-overview="An orphan boy is raised in the Jungle with the help of a pack of wolves, a bear and a black panther."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//vOipe2myi26UDwP978hsYOrnUWC.jpg" width="220" height="342">
+    <h4>The Jungle Book</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//kqjL17yufvn9OVLyXYpvtyrFfak.jpg"
+        data-title="Mad Max: Fury Road"
+        data-vote="7.28"
+        data-date="2015-05-13"
+        data-overview="An apocalyptic story set in the furthest reaches of our planet, in a stark desert landscape where humanity is broken, and most everyone is crazed fighting for the necessities of life. Within this world exist two rebels on the run who just might be able to restore order. There's Max, a man of action and a man of few words, who seeks peace of mind following the loss of his wife and child in the aftermath of the chaos. And Furiosa, a woman of action and a woman who believes her path to survival may be achieved if she can make it across the desert back to her childhood homeland."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//kqjL17yufvn9OVLyXYpvtyrFfak.jpg" width="220" height="342">
+    <h4>Mad Max: Fury Road</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//5N20rQURev5CNDcMjHVUZhpoCNC.jpg"
+        data-title="Captain America: Civil War"
+        data-vote="6.93"
+        data-date="2016-04-27"
+        data-overview="Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//5N20rQURev5CNDcMjHVUZhpoCNC.jpg" width="220" height="342">
+    <h4>Captain America: Civil War</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//h28t2JNNGrZx0fIuAw8aHQFhIxR.jpg"
+        data-title="The Boy Next Door"
+        data-vote="4.26"
+        data-date="2015-01-23"
+        data-overview="A recently cheated on married woman falls for a younger man who has moved in next door, but their torrid affair soon takes a dangerous turn."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//h28t2JNNGrZx0fIuAw8aHQFhIxR.jpg" width="220" height="342">
+    <h4>The Boy Next Door</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//inVq3FRqcYIRl2la8iZikYYxFNR.jpg"
+        data-title="Deadpool"
+        data-vote="7.15"
+        data-date="2016-02-09"
+        data-overview="Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//inVq3FRqcYIRl2la8iZikYYxFNR.jpg" width="220" height="342">
+    <h4>Deadpool</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"
+        data-title="Interstellar"
+        data-vote="8.12"
+        data-date="2014-11-05"
+        data-overview="Interstellar chronicles the adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg" width="220" height="342">
+    <h4>Interstellar</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//ghL4ub6vwbYShlqCFHpoIRwx2sm.jpg"
+        data-title="Star Trek Beyond"
+        data-vote="6.19"
+        data-date="2016-07-07"
+        data-overview="The USS Enterprise crew explores the furthest reaches of uncharted space, where they encounter a mysterious new enemy who puts them and everything the Federation stands for to the test."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//ghL4ub6vwbYShlqCFHpoIRwx2sm.jpg" width="220" height="342">
+    <h4>Star Trek Beyond</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//b77l5vmp6PYsc98LE6Uf1mXtmHh.jpg"
+        data-title="The Huntsman: Winter's War"
+        data-vote="5.64"
+        data-date="2016-04-06"
+        data-overview="As two evil sisters prepare to conquer the land, two renegades - Eric the Huntsman - who aided Snow White in defeating Ravenna in Snowwhite and the Huntsman, and his forbidden lover, Sara, set out to stop them."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//b77l5vmp6PYsc98LE6Uf1mXtmHh.jpg" width="220" height="342">
+    <h4>The Huntsman: Winter's War</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//vNCeqxbKyDHL9LUza03V2Im16wB.jpg"
+        data-title="The Nice Guys"
+        data-vote="6.9"
+        data-date="2016-05-15"
+        data-overview="A private eye investigates the apparent suicide of a fading porn star in 1970s Los Angeles and uncovers a conspiracy."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//vNCeqxbKyDHL9LUza03V2Im16wB.jpg" width="220" height="342">
+    <h4>The Nice Guys</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//gj282Pniaa78ZJfbaixyLXnXEDI.jpg"
+        data-title="The Hunger Games: Mockingjay - Part 1"
+        data-vote="6.71"
+        data-date="2014-11-18"
+        data-overview="Katniss Everdeen reluctantly becomes the symbol of a mass rebellion against the autocratic Capitol."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//gj282Pniaa78ZJfbaixyLXnXEDI.jpg" width="220" height="342">
+    <h4>The Hunger Games: Mockingjay - Part 1</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//jjBgi2r5cRt36xF6iNUEhzscEcb.jpg"
+        data-title="Jurassic World"
+        data-vote="6.6"
+        data-date="2015-06-09"
+        data-overview="Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//jjBgi2r5cRt36xF6iNUEhzscEcb.jpg" width="220" height="342">
+    <h4>Jurassic World</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//6FxOPJ9Ysilpq0IgkrMJ7PubFhq.jpg"
+        data-title="The Legend of Tarzan"
+        data-vote="4.8"
+        data-date="2016-06-29"
+        data-overview="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//6FxOPJ9Ysilpq0IgkrMJ7PubFhq.jpg" width="220" height="342">
+    <h4>The Legend of Tarzan</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//dCgm7efXDmiABSdWDHBDBx2jwmn.jpg"
+        data-title="Furious 7"
+        data-vote="7.4"
+        data-date="2015-04-01"
+        data-overview="Deckard Shaw seeks revenge against Dominic Toretto and his family for his comatose brother."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//dCgm7efXDmiABSdWDHBDBx2jwmn.jpg" width="220" height="342">
+    <h4>Furious 7</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//sM33SANp9z6rXW8Itn7NnG1GOEs.jpg"
+        data-title="Zootopia"
+        data-vote="7.39"
+        data-date="2016-02-11"
+        data-overview="Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//sM33SANp9z6rXW8Itn7NnG1GOEs.jpg" width="220" height="342">
+    <h4>Zootopia</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//tSFBh9Ayn5uiwbUK9HvD2lrRgaQ.jpg"
+        data-title="Allegiant"
+        data-vote="5.95"
+        data-date="2016-03-09"
+        data-overview="Beatrice Prior and Tobias Eaton venture into the world outside of the fence and are taken into protective custody by a mysterious agency known as the Bureau of Genetic Welfare."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//tSFBh9Ayn5uiwbUK9HvD2lrRgaQ.jpg" width="220" height="342">
+    <h4>Allegiant</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//a1DAxfDpUhZOn6j42HOJxfaIBPw.jpg"
+        data-title="Me Before You"
+        data-vote="7.46"
+        data-date="2016-03-03"
+        data-overview="A small town girl is caught between dead-end jobs. A high-profile, successful man becomes wheelchair bound following an accident. The man decides his life is not worth living until the girl is hired for six months to be his new caretaker. Worlds apart and trapped together by circumstance, the two get off to a rocky start. But the girl becomes determined to prove to the man that life is worth living and as they embark on a series of adventures together, each finds their world changing in ways neither of them could begin to imagine."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//a1DAxfDpUhZOn6j42HOJxfaIBPw.jpg" width="220" height="342">
+    <h4>Me Before You</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg"
+        data-title="The Equalizer"
+        data-vote="7.2"
+        data-date="2014-09-06"
+        data-overview="In The Equalizer, Denzel Washington plays McCall, a man who believes he has put his mysterious past behind him and dedicated himself to beginning a new, quiet life. But when McCall meets Teri (Chloë Grace Moretz), a young girl under the control of ultra-violent Russian gangsters, he can’t stand idly by – he has to help her. Armed with hidden skills that allow him to serve vengeance against anyone who would brutalize the helpless, McCall comes out of his self-imposed retirement and finds his desire for justice reawakened. If someone has a problem, if the odds are stacked against them, if they have nowhere else to turn, McCall will help. He is The Equalizer."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg" width="220" height="342">
+    <h4>The Equalizer</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//y31QB9kn3XSudA15tV7UWQ9XLuW.jpg"
+        data-title="Guardians of the Galaxy"
+        data-vote="7.97"
+        data-date="2014-07-30"
+        data-overview="Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of a manhunt after discovering an orb wanted by Ronan the Accuser."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//y31QB9kn3XSudA15tV7UWQ9XLuW.jpg" width="220" height="342">
+    <h4>Guardians of the Galaxy</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//zSouWWrySXshPCT4t3UKCQGayyo.jpg"
+        data-title="X-Men: Apocalypse"
+        data-vote="6.04"
+        data-date="2016-05-18"
+        data-overview="After the re-emergence of the world's first mutant, world-destroyer Apocalypse, the X-Men must unite to defeat his extinction level plan."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//zSouWWrySXshPCT4t3UKCQGayyo.jpg" width="220" height="342">
+    <h4>X-Men: Apocalypse</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//weUSwMdQIa3NaXVzwUoIIcAi85d.jpg"
+        data-title="Star Wars: The Force Awakens"
+        data-vote="7.55"
+        data-date="2015-12-15"
+        data-overview="Thirty years after defeating the Galactic Empire, Han Solo and his allies face a new threat from the evil Kylo Ren and his army of Stormtroopers."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//weUSwMdQIa3NaXVzwUoIIcAi85d.jpg" width="220" height="342">
+    <h4>Star Wars: The Force Awakens</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//vgAHvS0bT3fpcpnJqT6uDTUsHTo.jpg"
+        data-title="The Hobbit: The Battle of the Five Armies"
+        data-vote="7.12"
+        data-date="2014-12-10"
+        data-overview="Immediately after the events of The Desolation of Smaug, Bilbo and the dwarves try to defend Erebor's mountain of treasure from others who claim it: the men of the ruined Laketown and the elves of Mirkwood. Meanwhile an army of Orcs led by Azog the Defiler is marching on Erebor, fueled by the rise of the dark lord Sauron. Dwarves, elves and men must unite, and the hope for Middle-Earth falls into Bilbo's hands."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//vgAHvS0bT3fpcpnJqT6uDTUsHTo.jpg" width="220" height="342">
+    <h4>The Hobbit: The Battle of the Five Armies</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//5JU9ytZJyR3zmClGmVm9q4Geqbd.jpg"
+        data-title="Terminator Genisys"
+        data-vote="5.93"
+        data-date="2015-06-23"
+        data-overview="The year is 2029. John Connor, leader of the resistance continues the war against the machines. At the Los Angeles offensive, John's fears of the unknown future begin to emerge when TECOM spies reveal a new plot by SkyNet that will attack him from both fronts; past and future, and will ultimately change warfare forever."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//5JU9ytZJyR3zmClGmVm9q4Geqbd.jpg" width="220" height="342">
+    <h4>Terminator Genisys</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//noUp0XOqIcmgefRnRZa1nhtRvWO.jpg"
+        data-title="The Imitation Game"
+        data-vote="7.97"
+        data-date="2014-11-14"
+        data-overview="Based on the real life story of legendary cryptanalyst Alan Turing, the film portrays the nail-biting race against time by Turing and his brilliant team of code-breakers at Britain's top-secret Government Code and Cypher School at Bletchley Park, during the darkest days of World War II."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//noUp0XOqIcmgefRnRZa1nhtRvWO.jpg" width="220" height="342">
+    <h4>The Imitation Game</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//dM2w364MScsjFf8pfMbaWUcWrR.jpg"
+        data-title="Pulp Fiction"
+        data-vote="8.04"
+        data-date="1994-10-14"
+        data-overview="A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//dM2w364MScsjFf8pfMbaWUcWrR.jpg" width="220" height="342">
+    <h4>Pulp Fiction</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//aeiVxTSTeGJ2ICf1iSDXkF3ivZp.jpg"
+        data-title="10 Cloverfield Lane"
+        data-vote="6.57"
+        data-date="2016-03-10"
+        data-overview="Waking up from a car accident, a young woman finds herself in the basement of a man who says he's saved her life from a chemical attack that has left the outside uninhabitable."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//aeiVxTSTeGJ2ICf1iSDXkF3ivZp.jpg" width="220" height="342">
+    <h4>10 Cloverfield Lane</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg"
+        data-title="The Martian"
+        data-vote="7.61"
+        data-date="2015-09-30"
+        data-overview="During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg" width="220" height="342">
+    <h4>The Martian</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//aBBQSC8ZECGn6Wh92gKDOakSC8p.jpg"
+        data-title="Insurgent"
+        data-vote="6.44"
+        data-date="2015-03-18"
+        data-overview="Beatrice Prior must confront her inner demons and continue her fight against a powerful alliance which threatens to tear her society apart."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//aBBQSC8ZECGn6Wh92gKDOakSC8p.jpg" width="220" height="342">
+    <h4>Insurgent</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//4qnJ1hsMADxzwnOmnwjZTNp0rKT.jpg"
+        data-title="Ghostbusters"
+        data-vote="5.24"
+        data-date="2016-07-14"
+        data-overview="Following a ghost invasion of Manhattan, paranormal enthusiasts Erin Gilbert and Abby Yates, nuclear engineer Jillian Holtzmann, and subway worker Patty Tolan band together to stop the otherworldly threat."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//4qnJ1hsMADxzwnOmnwjZTNp0rKT.jpg" width="220" height="342">
+    <h4>Ghostbusters</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//t2mZzQXjpQxmqtJOPpe8Dr2YpMl.jpg"
+        data-title="The Angry Birds Movie"
+        data-vote="5.8"
+        data-date="2016-05-11"
+        data-overview="An island populated entirely by happy, flightless birds or almost entirely. In this paradise, Red, a bird with a temper problem, speedy Chuck, and the volatile Bomb have always been outsiders. But when the island is visited by mysterious green piggies, it’s up to these unlikely outcasts to figure out what the pigs are up to."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//t2mZzQXjpQxmqtJOPpe8Dr2YpMl.jpg" width="220" height="342">
+    <h4>The Angry Birds Movie</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//hE24GYddaxB9MVZl1CaiI86M3kp.jpg"
+        data-title="Spectre"
+        data-vote="6.19"
+        data-date="2015-10-26"
+        data-overview="A cryptic message from Bond’s past sends him on a trail to uncover a sinister organization. While M battles political forces to keep the secret service alive, Bond peels back the layers of deceit to reveal the terrible truth behind SPECTRE."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//hE24GYddaxB9MVZl1CaiI86M3kp.jpg" width="220" height="342">
+    <h4>Spectre</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//mGA8JtBKUs8HtdoiPad1FOlsLBi.jpg"
+        data-title="Tomorrowland"
+        data-vote="6.2"
+        data-date="2015-05-19"
+        data-overview="Bound by a shared destiny, a bright, optimistic teen bursting with scientific curiosity and a former boy-genius inventor jaded by disillusionment embark on a danger-filled mission to unearth the secrets of an enigmatic place somewhere in time and space that exists in their collective memory as "Tomorrowland.""
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//mGA8JtBKUs8HtdoiPad1FOlsLBi.jpg" width="220" height="342">
+    <h4>Tomorrowland</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//oXUWEc5i3wYyFnL1Ycu8ppxxPvs.jpg"
+        data-title="The Revenant"
+        data-vote="7.14"
+        data-date="2015-12-25"
+        data-overview="In the 1820s, a frontiersman, Hugh Glass, sets out on a path of vengeance against those who left him for dead after a bear mauling."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//oXUWEc5i3wYyFnL1Ycu8ppxxPvs.jpg" width="220" height="342">
+    <h4>The Revenant</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//il9XWx5CbNd2KdDUwrcClEZiLkv.jpg"
+        data-title="Fury"
+        data-vote="7.43"
+        data-date="2014-10-15"
+        data-overview="Last months of World War II in April 1945. As the Allies make their final push in the European Theater, a battle-hardened U.S. Army sergeant in the 2nd Armored Division named Wardaddy commands a Sherman tank called "Fury" and its five-man crew on a deadly mission behind enemy lines. Outnumbered and outgunned, Wardaddy and his men face overwhelming odds in their heroic attempts to strike at the heart of Nazi Germany."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//il9XWx5CbNd2KdDUwrcClEZiLkv.jpg" width="220" height="342">
+    <h4>Fury</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//9j2AmDhZvdwMyYKpqe4CtBkN1Tw.jpg"
+        data-title="London Has Fallen"
+        data-vote="5.46"
+        data-date="2016-01-22"
+        data-overview="In London for the Prime Minister's funeral, Mike Banning discovers a plot to assassinate all the attending world leaders."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//9j2AmDhZvdwMyYKpqe4CtBkN1Tw.jpg" width="220" height="342">
+    <h4>London Has Fallen</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//Hn0KgefVEp0GkdTexS6gfKTMfi.jpg"
+        data-title="The Hunger Games: Catching Fire"
+        data-vote="7.44"
+        data-date="2013-11-15"
+        data-overview="Katniss Everdeen has returned home safe after winning the 74th Annual Hunger Games along with fellow tribute Peeta Mellark. Winning means that they must turn around and leave their family and close friends, embarking on a "Victor's Tour" of the districts. Along the way Katniss senses that a rebellion is simmering, but the Capitol is still very much in control as President Snow prepares the 75th Annual Hunger Games (The Quarter Quell) - a competition that could change Panem forever."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//Hn0KgefVEp0GkdTexS6gfKTMfi.jpg" width="220" height="342">
+    <h4>The Hunger Games: Catching Fire</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//2EUAUIu5lHFlkj5FRryohlH6CRO.jpg"
+        data-title="Dawn of the Planet of the Apes"
+        data-vote="7.42"
+        data-date="2014-06-26"
+        data-overview="A group of scientists in San Francisco struggle to stay alive in the aftermath of a plague that is wiping out humanity, while Caesar tries to maintain dominance over his community of intelligent apes."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//2EUAUIu5lHFlkj5FRryohlH6CRO.jpg" width="220" height="342">
+    <h4>Dawn of the Planet of the Apes</h4>
+</div>
+
+<div class="col-md-4 movie-tile text-center"
+        data-image-url="http://image.tmdb.org/t/p/w185//coss7RgL0NH6g4fC2s5atvf3dFO.jpg"
+        data-title="The Maze Runner"
+        data-vote="7"
+        data-date="2014-09-10"
+        data-overview="Set in a post-apocalyptic world, young Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow "runners" for a shot at escape."
+        data-toggle="modal"
+        data-target="#movieinfo">
+    <img src="http://image.tmdb.org/t/p/w185//coss7RgL0NH6g4fC2s5atvf3dFO.jpg" width="220" height="342">
+    <h4>The Maze Runner</h4>
+</div>
+
+        </div>
+    </div>
+  </body>
+</html>
