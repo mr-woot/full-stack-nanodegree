@@ -3,6 +3,13 @@
     border: 1px solid red !important;
 }*/
 
+img,
+embed,
+object,
+video {
+    max-width: 100%;
+}
+
 .modify {
     background: black;
     height: 270px;
