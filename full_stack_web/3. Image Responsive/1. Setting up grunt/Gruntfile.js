@@ -1,16 +1,28 @@
 module.exports = function(grunt) {
-    grunt.loadNpmTasks('grunt-sass');
+
+    /*Loading our config*/
+    var config = grunt.file.readYAML('Gruntconfig.yml');
+
+    /*Load Grunt Tasks*/
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         sass: {
             dist: {
-                src: 'sass/style.scss',
-                dest: 'css/style2.css'
+                src: config.scssDir + 'style.scss',
+                dest: config.cssDir + 'style.css'
+            }
+        },
+        concat: {
+            dist: {
+                src: config.jsSrcDir + '*.js',
+                dest: config.jsConcatDir + 'scripts.js',
             }
         }
     });
 
     grunt.registerTask('default', [
-        'sass'
+        'sass',
+        'concat'
     ]);
 };
