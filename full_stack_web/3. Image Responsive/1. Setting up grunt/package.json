@@ -1,0 +1,14 @@
+{
+  "name": "setting_grunt",
+  "version": "1.0.0",
+  "description": "getting up grunt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "grunt"
+  ],
+  "author": "Tushar Mudgal",
+  "license": "MIT"
+}
