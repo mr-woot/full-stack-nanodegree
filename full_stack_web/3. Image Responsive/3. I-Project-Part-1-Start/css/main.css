@@ -1,0 +1,65 @@
+/*
+
+Your styles go here!
+
+Hint! You'll probably want to start by styling:
+  * <body>
+  * <article>
+  * <h1>
+  * <img>
+
+I've left some boilerplate below for you.
+
+*/
+
+body {
+    margin: 2em;
+}
+
+article {
+    margin: 0 auto;
+    max-width: 50em;
+    border-bottom: 1px solid #101010;
+}
+
+h1,
+h2,
+h2,
+h4,
+h5,
+h6 {
+    margin: 0 auto 1em auto;
+    width: 800px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+.custom-font-icons {
+    text-decoration: none;
+    font-size: 2.5em;
+    line-height: 1.5em;
+    margin: 0 auto;
+    max-width: 800px;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover
+{
+     color:#00A0C6;
+     text-decoration:none;
+     cursor:pointer;
+}
