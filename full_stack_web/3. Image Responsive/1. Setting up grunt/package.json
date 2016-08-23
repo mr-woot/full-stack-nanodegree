@@ -10,5 +10,8 @@
     "grunt"
   ],
   "author": "Tushar Mudgal",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
 }
