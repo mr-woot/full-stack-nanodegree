@@ -18,11 +18,21 @@ module.exports = function(grunt) {
                 src: config.jsSrcDir + '*.js',
                 dest: config.jsConcatDir + 'scripts.js',
             }
+        },
+        jshint: {
+            options: {
+                "eqeqeq": true
+            },
+            all: [
+                'Gruntfile.js',
+                config.jsSrcDir + "*.js"
+            ]
         }
     });
 
     grunt.registerTask('default', [
         'sass',
-        'concat'
+        'concat',
+        'jshint'
     ]);
 };
