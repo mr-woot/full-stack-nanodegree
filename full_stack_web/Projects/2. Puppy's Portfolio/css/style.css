@@ -1,0 +1,30 @@
+/** {
+    box-sizing: border-box;
+    border: 1px solid red !important;
+}*/
+
+img,
+embed,
+object,
+video {
+    max-width: 100%;
+}
+
+.modify {
+    background: black;
+    height: 270px;
+    width: 100%;
+    object-fit: contain
+}
+
+.modify-shadow {
+    box-shadow: 0 0 40px #888888;
+}
+
+.main-font {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.custom-text {
+    font-family: 'Titillium Web', sans-serif;
+}
