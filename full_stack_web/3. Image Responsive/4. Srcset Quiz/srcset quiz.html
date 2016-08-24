@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)http://udacity.github.io/responsive-images/examples/srcsetAndSizes/index-quiz1-solution.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="description" content="Udacity Responsive Images course project">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  
+  <meta itemprop="image" content="images/icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="udacity-grader" content="tests-srcset.json">
+  <!--<base target="_blank">--><base href="." target="_blank">
+  <title>srcset quiz</title>
+  <link rel="icon" sizes="192x192" href="http://udacity.github.io/responsive-images/examples/srcsetAndSizes/images/icon.png">
+  <link href="./srcset quiz_files/css" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      font-family: 'Slabo 27px', serif;
+    }
+    img.udacity {
+      width: 2em;
+      margin-bottom: -15px;
+      margin-left: -8px;
+    }
+    img {
+      width: 100vw;
+      max-width: 100%;
+    }
+    p {
+      font-size: 1.25em;
+    }
+    figure {
+      margin: 0 -8px;
+    }
+    figcaption {
+      margin-left: 2em;
+    }
+    .center {
+      text-align: center;
+    }
+    .code-style {
+      font-family: monospace;
+      background: rgb(220,220,220);
+      border-style: solid;
+      border-width: 1px;
+      border-color: rgb(200,200,200);
+      border-radius: 2px;
+    }
+  </style>
+<link rel="import" href="chrome-extension://melpgahbngpgnbhhccnopmlmpbmdaeoi/app/templates/feedback.html" id="udacity-test-widget"><script id="ud-grader-options">UdacityFEGradingEngine.turnOn();</script></head>
+<body>
+  <p><img class="udacity" src="./srcset quiz_files/udacity_logo.svg" alt="Udacity Logo"><a href="https://www.udacity.com/course/viewer#!/c-ud882/l-3574748851/e-3979188798/m-3948588679" target="_blank">Responsive Images</a> quiz by <a href="http://twitter.com/cwpittman" target="_blank">Cameron Pittman</a></p>
+
+  <h1 class="center">Instructions</h1>
+  <p><code class="code-style">srcset</code> is super useful. This quiz is here to help you practice giving the browser the ability to decide which image it should download based on its device pixel ratio and width.</p>
+
+  <p>Modify this page using DevTools. When it meets all the requirements listed in the Udacity Feedback, a code will appear. Type that code into the Udacity classroom to continue.</p>
+
+  <h1 class="center"><code class="code-style">srcset</code> Using DPI</h1>
+  <p><a href="http://en.wikipedia.org/wiki/Den_Haag">Den Haag</a>'s skyline looks like it's ready for a retina display. Help the browser determine the right image to download using <code class="code-style">srcset</code>. It should download <code class="code-style">Den_Haag_2x.jpg</code> if it is a 2x display and <code class="code-style">Den_Haag_1x.jpg</code> if it is a 1x display.</p>
+
+  <p>Make your changes using Chrome DevTools!</p>
+
+  <figure>
+    <img class="dpi" src="./srcset quiz_files/Den_Haag_2x.jpg" srcset="images/Den_Haag_2x.jpg 2x, images/Den_Haag_1x.jpg 1x" alt="Den Haag Skyline">
+    <figcaption>Source: Cameron Pittman</figcaption>
+  </figure>
+
+  <h2 class="center"><code class="code-style">srcset</code> Using Image Width</h2>
+  <p>Australia looks like it's ready for tablet and desktop, but it's probably too wide for mobile. Fix that with <code class="code-style">srcset</code>. Tell the browser that <code class="code-style">Australia_1280w.jpg</code> is 1280px wide and <code class="code-style">Australia_640w.jpg</code> is 640px wide so that the browser can choose the best one to download.</p>
+
+  <p>Make your changes using Chrome DevTools!</p>
+
+  <figure>
+    <img class="w" src="./srcset quiz_files/Australia_1280w.jpg" srcset="images/Australia_1280w.jpg 1280w, images/Australia_640w.jpg 640w" alt="Australia from Space">
+    <figcaption>Source: <a href="http://commons.wikimedia.org/wiki/File:Australia_satellite_plane.jpg#/media/File:Australia_satellite_plane.jpg">NASA</a></figcaption>
+  </figure>
+    <!--
+    "Australia satellite plane" by Reto Stöckl / NASA Goddard Space Flight Center - The image is from [1], specifically land_shallow_topo_east.tif, which was cropped at 5250x4320+13390+11880.. Licensed under Public Domain via Wikimedia Commons - http://commons.wikimedia.org/wiki/File:Australia_satellite_plane.jpg#/media/File:Australia_satellite_plane.jpg
+    -->
+
+  <script async="" src="./srcset quiz_files/analytics.js"></script><script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-58149140-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+
+<script src="chrome-extension://melpgahbngpgnbhhccnopmlmpbmdaeoi/app/js/libs/GE.js" id="udacity-front-end-feedback"></script><script id="ud-51877379">UdacityFEGradingEngine.registerSuites("[{\n  \"name\": \"srcset\",\n  \"code\": \"setupyoursources\",\n  \"tests\": [\n    {\n      \"description\": \"Den Haag skyline image (with class 'dpi') is on the page.\",\n      \"definition\": {\n        \"nodes\": \"img.dpi\",\n        \"get\": \"count\",\n        \"equals\": 1\n      }\n    },\n    {\n      \"description\": \"Den Haag skyline reacts to device pixel ratio.\",\n      \"definition\": {\n        \"nodes\": \"img.dpi\",\n        \"attribute\": \"srcset\",\n        \"equals\": [\n          \"images/Den_Haag_2x.jpg 2x, images/Den_Haag_1x.jpg 1x\",\n          \"images/Den_Haag_1x.jpg 1x, images/Den_Haag_2x.jpg 2x\",\n          \"images/Den_Haag_2x.jpg 2x, images/Den_Haag_1x.jpg\",\n          \"images/Den_Haag_1x.jpg, images/Den_Haag_2x.jpg 2x\"\n        ]\n      }\n    },\n    {\n      \"description\": \"The Australia image (with class 'w') is on the page.\",\n      \"definition\": {\n        \"nodes\": \"img.w\",\n        \"get\": \"count\",\n        \"equals\": 1\n      }\n    },\n    {\n      \"description\": \"Australia reacts to screen width.\",\n      \"definition\": {\n        \"nodes\": \"img.w\",\n        \"attribute\": \"srcset\",\n        \"equals\": [\n          \"images/Australia_1280w.jpg 1280w, images/Australia_640w.jpg 640w\",\n          \"images/Australia_640w.jpg 640w, images/Australia_1280w.jpg 1280w\"\n        ]\n      }\n    }\n  ]\n}]");</script><test-widget></test-widget></body></html>
