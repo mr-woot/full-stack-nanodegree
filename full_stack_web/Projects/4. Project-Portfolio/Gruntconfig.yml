@@ -2,3 +2,5 @@ scssDir: sass/
 jsSrcDir: src/js/
 jsConcatDir: dist/js/
 cssDir: css/
+imgSrcDir: img_src/
+imgDestDir: img/
