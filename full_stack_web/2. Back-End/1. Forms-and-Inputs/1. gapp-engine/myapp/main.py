@@ -16,8 +16,11 @@
 import webapp2
 
 form="""
-<form action="/testform">
-    <input name="q">
+<form>
+    <input type="radio" name="q" value="one">
+    <input type="radio" name="q" value="two">
+    <input type="radio" name="q" value="three">
+    <br>
     <input type="submit">
 </form>
 """
@@ -28,9 +31,11 @@ class MainPage(webapp2.RequestHandler):
 
 
 class TestHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
+        self.response.headers['Content-Type'] = 'text/plain'
         q = self.request.get("q")
-        self.response.write(q)
+        self.response.out.write(q)
+        # self.response.out.write(self.request)
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
