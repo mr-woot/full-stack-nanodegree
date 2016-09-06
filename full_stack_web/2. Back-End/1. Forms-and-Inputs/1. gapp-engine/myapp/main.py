@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import webapp2
+import cgi
 # import validation.py
 
 form="""
@@ -34,6 +35,10 @@ form="""
     <input type="submit">
 </form>
 """
+
+def escape_html(s):
+    s = cgi.escape(s, quote=True)
+    return s
 
 months = ['January',
       'February',
@@ -90,9 +95,13 @@ class MainPage(webapp2.RequestHandler):
         if not (m and d and y):
             self.write_form("Oops! error dude..", rm, rd, ry)
         else:
-            self.response.out.write("Thanks!, you know your date well")
+            self.redirect("/success")
 
+class SuccessHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.out.write("Thanks!, you know your date well")
 app = webapp2.WSGIApplication([
-    ('/', MainPage)],
+    ('/', MainPage),
+    ('/success', SuccessHandler)],
     debug=True)
 
