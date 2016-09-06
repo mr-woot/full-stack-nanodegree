@@ -16,70 +16,79 @@
 import webapp2
 # import validation.py
 
-months = ['January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December']
-
-def valid_month(month):
-    m = month.capitalize()
-    if m in months:
-        return m
-    else:
-        return None
-
-def valid_day(day):
-  if day.isdigit():
-    day = int(day)
-    if day>=0 and day<=31:
-      return day
-  else:
-    return None
-
-def valid_year(year):
-  if year.isdigit():
-    year = int(year)
-    if year>=0 and year<=31:
-      return year
-  else:
-    return None
-
 form="""
 <form method="post">
     <h3>What is your birthday?</h3>
     <label> Month
-        <input type="text" name="month">
+        <input type="text" name="month" value="%(month)s">
     </label>
     <label> Day
-        <input type="text" name="day">
+        <input type="text" name="day" value="%(day)s">
     </label>
     <label> Year
-        <input type="text" name="year">
+        <input type="text" name="year" value="%(year)s">
     </label>
+    <div style="color: red">%(error)s</div>
     <br>
     <br>
     <input type="submit">
 </form>
 """
 
+months = ['January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December']
+
+def valid_month(month):
+    m = month.capitalize()
+    if m in months:
+        return True
+    else:
+        return False
+def valid_day(day):
+    if day.isdigit():
+        day = int(day)
+    if day>=0 and day<=31:
+        return True
+    else:
+        return False
+def valid_year(year):
+    if year.isdigit():
+        year = int(year)
+    if year>=1900 and year<=2020:
+        return True
+    else:
+        return False
+
+
 class MainPage(webapp2.RequestHandler):
+    def write_form(self, error="", month="", day="", year=""):
+        self.response.out.write(form % {"error": error,
+                                        "month": month,
+                                        "day": day,
+                                        "year": year})
+
     def get(self):
-        self.response.out.write(form)
+        self.write_form()
 
     def post(self):
-        m = valid_month(self.request.get('month'))
-        d = valid_day(self.request.get('day'))
-        y = valid_year(self.request.get('year'))
+        rm = self.request.get('month')
+        rd = self.request.get('day')
+        ry = self.request.get('year')
+        m = valid_month(rm)
+        d = valid_day(rd)
+        y = valid_year(ry)
         if not (m and d and y):
-            self.response.out.write(form)
+            self.write_form("Oops! error dude..", rm, rd, ry)
         else:
             self.response.out.write("Thanks!, you know your date well")
 
