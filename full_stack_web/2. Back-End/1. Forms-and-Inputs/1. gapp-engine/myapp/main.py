@@ -17,9 +17,11 @@ import webapp2
 
 form="""
 <form>
-    <input type="radio" name="q" value="one">
-    <input type="radio" name="q" value="two">
-    <input type="radio" name="q" value="three">
+    <select name="q">
+        <option>one</option>
+        <option>two</option>
+        <option>three</option>
+    </select>
     <br>
     <input type="submit">
 </form>
