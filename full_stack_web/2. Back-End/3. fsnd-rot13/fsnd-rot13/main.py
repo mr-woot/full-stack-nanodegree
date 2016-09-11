@@ -26,13 +26,13 @@ class Handler(webapp2.RequestHandler):
 
 class Rot13(Handler):
     def get(self):
-        self.render("rot13.html")
+        self.render("index.html")
     def post(self):
         text = self.request.get("text")
         r13=""
         if text:
             r13 = text.encode("rot13")
-        self.render("rot13.html", text=r13)
+        self.render("index.html", text=r13)
 
 
 
