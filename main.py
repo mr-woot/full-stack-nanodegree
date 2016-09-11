@@ -4,7 +4,7 @@ import jinja2
 
 # Template dirs
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
 # Regular expressions for authentification
@@ -24,19 +24,14 @@ class Handler(webapp2.RequestHandler):
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
 
-class Rot13(Handler):
+class gae(Handler):
     def get(self):
-        self.render("rot13.html")
+        self.render("index.html")
     def post(self):
-        text = self.request.get("text")
-        r13=""
-        if text:
-            r13 = text.encode("rot13")
-        self.render("rot13.html", text=r13)
-
-
+    	text = self.request.get("text")
+        self.render("index.html", text=text)
 
 app = webapp2.WSGIApplication([
-    ('/', Rot13)],
+    ('/', gae)],
     debug=True)
 
