@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>
+            Sign Up
+        </title>
+        <style type="text/css">
+            .label {text-align: right}
+    .error {color: red}
+        </style>
+        <style id="dark-reader-style" type="text/css">
+        </style>
+    </head>
+    <body>
+        <h2>
+            Signup
+        </h2>
+        <form method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="label">
+                            Username
+                        </td>
+                        <td>
+                            <input name="username" type="text" value="{{username}}">
+                            </input>
+                        </td>
+                        <td class="error">
+                            {{u_error}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Password
+                        </td>
+                        <td>
+                            <input name="password" type="password" value="">
+                            </input>
+                        </td>
+                        <td class="error">
+                            {{p_error}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Verify Password
+                        </td>
+                        <td>
+                            <input name="verify" type="password" value="{{email}}">
+                            </input>
+                        </td>
+                        <td class="error">
+                            {{v_error}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Email (optional)
+                        </td>
+                        <td>
+                            <input name="email" type="text" value="">
+                            </input>
+                        </td>
+                        <td class="error">
+                            {{e_error}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit">
+            </input>
+        </form>
+    </body>
+</html>
