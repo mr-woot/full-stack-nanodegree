@@ -13,19 +13,49 @@
         width: 800px;
         margin: 0 auto;
         text-align: center;
+        padding: 10px;
     }
-
+    
     label {
         display: block;
+        font-size: 20px;
     }
-
+    
+    input[type=text] {
+        width: 400px;
+        font-size: 20px;
+    }
+    
     textarea {
-        width: 300px;
-        height: 150px;
+        width: 400px;
+        height: 200px;
+        font-size: 16px;
     }
-
+    
+    input[type=submit] {
+        font-size: 24px;
+    }
+    
+    hr {
+        margin: 20px auto;
+    }
+    
     .error {
-    	color: red;
+        color: red;
+    }
+    
+    .art-title {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    .art-body {
+        margin: 0;
+        font-size: 16px;
+    }
+    
+    .arts {
+        color: blue;
     }
     </style>
 </head>
@@ -45,6 +75,12 @@
         </label>
         <input type="submit">
     </form>
+    <hr> {% for art in arts %}
+    <div class="arts">
+        <div class="art-title">{{art.title}}</div>
+        <pre class="art-body">{{art.art}}</pre>
+    </div>
+    {% endfor %}
 </body>
 <script type="text/javascript"></script>
 

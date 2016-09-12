@@ -1,6 +1,7 @@
 import os
 import webapp2
 import jinja2
+from google.appengine.ext import db
 
 # Template dirs
 
@@ -30,11 +31,18 @@ class Handler(webapp2.RequestHandler):
         self.write(self.render_str(template, **kw))
 
 
+class Art(db.Model):
+    title = db.StringProperty(required=True)
+    art = db.TextProperty(required=True)
+    created = db.DateTimeProperty(auto_now_add=True)
+
+
 class AsciiChan(Handler):
 
     def render_chan(self, t_error="", a_error="", title="", art=""):
+        arts = db.GqlQuery("select * from Art order by created desc")
         self.render("index.html", t_error=t_error,
-                    a_error=a_error, title=title, art=art)
+                    a_error=a_error, title=title, art=art, arts=arts)
 
     def get(self):
         self.render_chan()
@@ -53,8 +61,10 @@ class AsciiChan(Handler):
             error = True
         if error:
             self.render_chan(t_error, a_error, title, art)
-        else:
-            self.write("Sucessfully posted")
+        elif title and art:
+            a = Art(title=title, art=art)
+            a.put()
+            self.redirect("/")
 app = webapp2.WSGIApplication([
     ('/', AsciiChan)],
     debug=True)
