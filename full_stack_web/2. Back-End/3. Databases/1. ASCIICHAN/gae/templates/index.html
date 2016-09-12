@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ASCII-CHAN</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Demo project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <style type="text/css">
+    body {
+        width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    label {
+        display: block;
+    }
+
+    textarea {
+        width: 300px;
+        height: 150px;
+    }
+
+    .error {
+    	color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>Hi, Chan: Do some Art Channing</h2>
+    <form method="post">
+        <label>
+            <h3>Title:</h3>
+            <input type="text" name="title" value="{{title}}">
+            <div class="error">{{t_error}}</div>
+        </label>
+        <label>
+            <h3>Art:</h3>
+            <textarea type="text" name="art" value="{{art}}"></textarea>
+            <div class="error">{{a_error}}</div>
+        </label>
+        <input type="submit">
+    </form>
+</body>
+<script type="text/javascript"></script>
+
+</html>
