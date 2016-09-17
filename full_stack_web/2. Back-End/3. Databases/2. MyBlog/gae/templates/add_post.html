@@ -37,14 +37,13 @@
     <form method="post">
         <label>
             <div class="subject">Subject</div>
-            <input type="text" name="subject">
-            <div class="error">{{s_error}}</div>
+            <input type="text" name="subject" value="{{subject}}">
         </label>
         <label>
             <div class="content">Content</div>
             <textarea type="text" name="content">{{content}}</textarea>
-            <div class="error">{{c_error}}</div>
         </label>
+        <div class="error">{{error}}</div>
         <input type="submit">
     </form>
 </body>
