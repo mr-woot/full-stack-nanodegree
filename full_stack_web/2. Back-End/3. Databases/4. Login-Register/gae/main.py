@@ -15,6 +15,73 @@ jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                autoescape=True)
 
 
+def blog_key(name='default'):
+    return db.Key.from_path('blogs', name)
+
+
+def render_post(response, post):
+    response.out.write('<b>' + post.subject + '</b><br>')
+    response.out.write(post.content)
+
+
+class Post(db.Model):
+    subject = db.StringProperty(required=True)
+    content = db.TextProperty(required=True)
+    created = db.DateTimeProperty(auto_now_add=True)
+    last_modified = db.DateTimeProperty(auto_now=True)
+
+    def render(self):
+        self._render_text = self.content.replace('\n', '<br>')
+        return render_str("post.html", p=self)
+
+
+class BlogFront(BlogHandler):
+
+    def get(self):
+        posts = greetings = Post.all().order('-created')
+        self.render('front.html', posts=posts)
+
+
+class PostPage(BlogHandler):
+
+    def get(self, post_id):
+        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        post = db.get(key)
+
+        if not post:
+            self.error(404)
+            return
+
+        self.render("permalink.html", post=post)
+
+
+class NewPost(BlogHandler):
+
+    def get(self):
+        if self.user:
+            self.render("newpost.html")
+        else:
+            self.redirect("/login")
+
+    def post(self):
+        if not self.user:
+            self.redirect('/blog')
+
+        subject = self.request.get('subject')
+        content = self.request.get('content')
+
+        if subject and content:
+            p = Post(parent=blog_key(), subject=subject, content=content)
+            p.put()
+            self.redirect('/blog/%s' % str(p.key().id()))
+        else:
+            error = "subject and content, please!"
+            self.render("newpost.html", subject=subject,
+                        content=content, error=error)
+
+##########################################################################
+
+
 def make_salt(length=10):
     return ''.join(random.choice(letters) for x in xrange(length))
 
@@ -181,12 +248,6 @@ class Signup(Handler):
         raise NotImplementedError
 
 
-# class URISignup(Signup):
-
-#     def done(self):
-#         self.redirect('/welcome?user=' + self.username)
-
-
 class Register(Signup):
 
     def done(self):
@@ -215,7 +276,7 @@ class Login(Handler):
         u = User.login(username, password)
         if u:
             self.login(u)
-            self.redirect('/welcome')
+            self.redirect('/blog')
         else:
             msg = 'Login Invalid'
             self.render('login-form.html', error=msg)
@@ -225,14 +286,14 @@ class Logout(Handler):
 
     def get(self):
         self.logout()
-        self.redirect('/signup')
+        self.redirect('/blog')
 
 
 class Welcome(Handler):
 
     def get(self):
         if self.user:
-            self.render('index.html', username=self.user.name)
+            self.render('welcome.html', username=self.user.name)
         else:
             self.redirect('/signup')
 
@@ -240,9 +301,9 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/signup', Register),
                                ('/welcome', Welcome),
                                ('/login', Login),
-                               ('/logout', Logout)
-                               # ('/blog/?', BlogFront),
-                               # ('/blog/([0-9]+)', PostPage),
-                               # ('/blog/newpost', NewPost),
+                               ('/logout', Logout),
+                               ('/blog/?', BlogFront),
+                               ('/blog/([0-9]+)', PostPage),
+                               ('/blog/newpost', NewPost),
                                ],
                               debug=True)
