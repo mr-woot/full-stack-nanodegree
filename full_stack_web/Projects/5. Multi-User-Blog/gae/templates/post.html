@@ -1,13 +1,7 @@
-<div class="post">
-    <div class="post-heading">
-        <div class="post-title">
-            {{p.subject}}
-        </div>
-        <div class="post-date">
-            {{p.created.strftime("%b %d, %Y")}}
-        </div>
+<div class="container post-box animate-bottom">
+    <div class="content-flex">
+        <h2>{{p.subject}}</h2>
+        <h5 class="text-right">{{p.created.strftime("%b %d, %Y")}}</h5>
     </div>
-    <div class="post-content">
-        {{p._render_text | safe}}
-    </div>
+    <h4>{{p._render_text | safe}}</h4>
 </div>

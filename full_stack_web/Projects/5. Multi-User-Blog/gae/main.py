@@ -238,9 +238,9 @@ def blog_key(name='default'):
     return db.Key.from_path('blogs', name)
 
 
-def render_post(response, post):
-    response.out.write('<b>' + post.subject + '</b><br>')
-    response.out.write(post.content)
+# def render_post(response, post):
+#     response.out.write('<b>' + post.subject + '</b><br>')
+#     response.out.write(post.content)
 
 
 class Post(db.Model):

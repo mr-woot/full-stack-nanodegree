@@ -36,21 +36,19 @@
                     <li><a href="/projects">Projects</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-	                {% if user %}
-	                	<li class="text-uppercase"><a href="/blog">{{user.name}}</a></li>
-	                	<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-	                {% else %}
-	                    <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-	                {% endif %}
+                    {% if user %}
+                    <li class="text-capitalize"><a href="/blog">{{user.name}}</a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {% else %}
+                    <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container signup-form">
-    	{% block content %}
-    	{% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
