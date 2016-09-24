@@ -1,2 +1,19 @@
-{% extends "index.html" %} {% block content %} {% if user %}
-<h2>Welcome, {{user.name}}!</h2> {% endif %} {% endblock %}
+{% extends "index.html" %}
+{% block content %}
+	<div id="loader"></div>
+	{% if user %}
+		<div style="display: none;" id="myDiv" class="animate-bottom">
+			<h2>Welcome, {{user.name}}!</h2>
+		</div>
+	{% endif %}
+	<script>
+	var myVar;
+	function myFunction() {
+		myVar = setTimeout(showPage, 3000)
+	}
+	function showPage() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+	}
+</script>
+{% endblock %}
