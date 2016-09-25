@@ -1,4 +1,6 @@
 {% extends "index.html" %}
-{% block content %}
-    {{post.render() | safe}}
+{% block permalink %}
+	<div class="content-flex">
+		{{post.render() | safe}}
+	</div>
 {% endblock %}

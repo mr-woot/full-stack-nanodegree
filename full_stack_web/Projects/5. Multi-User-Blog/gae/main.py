@@ -200,7 +200,10 @@ class Register(Signup):
 class Login(Handler):
 
     def get(self):
-        self.render('login-form.html')
+        if not self.user:
+            self.render('login-form.html')
+        else:
+            self.redirect('/welcome')
 
     def post(self):
         username = self.request.get('username')
@@ -284,24 +287,50 @@ class NewPost(Handler):
 
     def post(self):
         if not self.user:
-            self.redirect('/blog')
-
-        subject = self.request.get('subject')
-        content = self.request.get('content')
-
-        if subject and content:
-            p = Post(parent=blog_key(), subject=subject, content=content)
-            p.put()
-            self.redirect('/blog/%s' % str(p.key().id()))
+            self.redirect('/login')
         else:
-            error = "subject and content, please!"
-            self.render("newpost.html", subject=subject,
-                        content=content, error=error)
+            subject = self.request.get('subject')
+            content = self.request.get('content')
 
-##########################################################################
+            if subject and content:
+                p = Post(parent=blog_key(), subject=subject, content=content)
+                p.put()
+                self.redirect('/blog/%s' % str(p.key().id()))
+            else:
+                error = "subject and content, please!"
+                self.render("newpost.html", subject=subject,
+                            content=content, error=error)
 
 
-app = webapp2.WSGIApplication([('/', MainPage),
+class EditPost(NewPost):
+
+    def get(self):
+        if self.user:
+            self.render("editpost.html")
+        else:
+            self.redirect('/login')
+
+    def post(self):
+        if not self.user:
+            self.redirect('login')
+        else:
+            subject = self.request.get('subject')
+            content = self.request.get('content')
+
+            if subject and content:
+                p = Post(parent=blog_key(), subject=subject, content=content)
+                p.put()
+                self.redirect('/blog/%s' % str(p.key().id()))
+            else:
+                error = "subject and content, please!"
+                self.render("newpost.html", subject=subject,
+                            content=content, error=error)
+
+
+###################################################################
+
+
+app = webapp2.WSGIApplication([('/', Login),
                                ('/signup', Register),
                                ('/welcome', Welcome),
                                ('/login', Login),
@@ -309,5 +338,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/blog/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
                                ('/blog/newpost', NewPost),
-                               ],
+                               ('/editpost', EditPost)],
                               debug=True)

@@ -3,8 +3,9 @@
 }
 
 body {
-    background: #adebad;
+    background: #f6f6f6;
 }
+
 .post-box {
     background: white;
     box-shadow: 0 0 1px #0f0f0f;
@@ -19,8 +20,14 @@ body {
     flex-wrap: row nowrap;
     justify-content: space-between;
 }
+
 .navbar-border {
     border-radius: 0px;
+    background: #fff;
+}
+
+#navbarItems > ul > li > a {
+    color: black;
 }
 
 .error {
@@ -29,9 +36,21 @@ body {
 
 .my-form {
     margin: 0 auto;
+    margin-top: 50px;
     max-width: 350px;
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
 }
 
+/* @media screen and (max-width: 376px) {
+    .my-form {
+        background: #fff;
+        padding: 40px;
+        border: 1px solid #e0e0e0;
+    }
+}
+ */
 
 /*Loading styles*/
 

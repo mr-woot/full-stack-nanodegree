@@ -31,13 +31,14 @@
             </div>
             <div class="collapse navbar-collapse" id="navbarItems">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/blog">Home</a></li>
+                    <li class="active"><a href="/blog">Posts</a></li>
                     <li><a href="/myself">About</a></li>
                     <li><a href="/projects">Projects</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user %}
                     <li class="text-capitalize"><a href="/blog">{{user.name}}</a></li>
+                    <li class="text-capitalize"><a href="/blog/newpost"><span class="glyphicon glyphicon-plus"></span> Add Post</a></li>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     {% else %}
                     <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -48,6 +49,8 @@
         </div>
     </nav>
     {% block content %}
+    {% endblock %}
+    {% block permalink %}
     {% endblock %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
