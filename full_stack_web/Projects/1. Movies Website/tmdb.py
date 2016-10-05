@@ -145,10 +145,10 @@ def create_movie_tiles_content(movies):
     for movie in movies:
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
-            original_title=movie.original_title, 
-            poster_path=movie.poster_path, 
-            overview=movie.overview, 
-            release_date=movie.release_date, 
+            original_title=movie.original_title,
+            poster_path=movie.poster_path,
+            overview=movie.overview,
+            release_date=movie.release_date,
             vote_average=movie.vote_average
         )
     return content

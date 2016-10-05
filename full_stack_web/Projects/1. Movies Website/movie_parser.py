@@ -1,4 +1,5 @@
-import json, urllib
+import json
+import urllib
 import movie_model
 import tmdb
 
@@ -17,7 +18,7 @@ movies = []
 for i in range(1, 3):
     # api-page link
     link = url + "&page=" + str(i)
-    
+
     # getting response data from link-url
     response = urllib.urlopen(link)
 
@@ -26,12 +27,12 @@ for i in range(1, 3):
 
     # parsing json data and appending to the list
     for item in content['results']:
-        movies.append(movie_model.MovieModel(item[u'id'], 
-                               item[u'poster_path'], 
-                               item[u'overview'].encode('utf8'), 
-                               item[u'release_date'], 
-                               item[u'original_title'], 
-                               item[u'vote_average']))
+        movies.append(movie_model.MovieModel(item[u'id'],
+                                             item[u'poster_path'],
+                                             item[u'overview'].encode('utf8'),
+                                             item[u'release_date'],
+                                             item[u'original_title'],
+                                             item[u'vote_average']))
 
 # run app
 tmdb.open_movies_page(movies)

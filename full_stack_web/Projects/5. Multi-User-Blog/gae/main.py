@@ -1,84 +1,39 @@
-import os
 import re
-import random
-import hashlib
 import hmac
-from string import letters
 
 import webapp2
-import jinja2
 
 from google.appengine.ext import db
 
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
-                               autoescape=True)
+from user import User
+from post import Post
+from comment import Comment
+from like import Like
+import jinja_helper
 
 
-def make_salt(length=10):
-    return ''.join(random.choice(letters) for x in xrange(length))
-
-
-def make_pw_hash(name, pw, salt=None):
-    if not salt:
-        salt = make_salt()
-    h = hashlib.sha256(name + pw + salt).hexdigest()
-    return "%s,%s" % (salt, h)
-
-
-def valid_pw(name, pw, h):
-    salt = h.split(',')[0]
-    return h == make_pw_hash(name, pw, salt)
-
-
-def users_key(group='default'):
-    return db.Key.from_path('users', group)
-
-
-class User(db.Model):
-    name = db.StringProperty(required=True)
-    pw_hash = db.StringProperty(required=True)
-    email = db.StringProperty()
-
-    @classmethod
-    def by_id(cls, uid):
-        return User.get_by_id(uid, parent=users_key())
-
-    @classmethod
-    def by_name(cls, name):
-        u = User.all().filter('name =', name).get()
-        return u
-
-    @classmethod
-    def register(cls, name, pw, email=None):
-        pw_hash = make_pw_hash(name, pw)
-        return User(parent=users_key(),
-                    name=name,
-                    pw_hash=pw_hash,
-                    email=email)
-
-    @classmethod
-    def login(cls, name, pw):
-        u = cls.by_name(name)
-        if u and valid_pw(name, pw, u.pw_hash):
-            return u
-
-
-# hashing secret functions
+# hashing secret
 
 secret = "haha_u_wanna_know_secret"
 
 
 def make_secure_val(val):
+    """
+        Makes the value secure
+    """
     return "%s|%s" % (val, hmac.new(secret, val).hexdigest())
 
 
 def check_secure_val(secure_val):
+    """
+        Checks the value, if it is secure or not
+    """
     val = secure_val.split('|')[0]
     if secure_val == make_secure_val(val):
         return val
 
-# username, email functions
+
+# Regex for input validation
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{5,20}$")
 PASS_RE = re.compile(r"^.{5,20}$")
@@ -86,60 +41,99 @@ EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 
 
 def valid_username(username):
+    """
+        Validates username
+    """
     return username and USER_RE.match(username)
 
 
 def valid_password(password):
+    """
+        Validates password
+    """
     return password and PASS_RE.match(password)
 
 
 def valid_email(email):
+    """
+        Validates email
+    """
     return not email or EMAIL_RE.match(email)
 
 
-def render_str(template, **params):
-    t = jinja_env.get_template(template)
-    return t.render(params)
+# Main Handler
 
 
 class Handler(webapp2.RequestHandler):
+    """
+        Main Handler class that provides helper methods
+    """
 
     def write(self, *a, **kw):
+        """
+            Outputs to the browser
+        """
         self.response.out.write(*a, **kw)
 
     def render_str(self, template, **params):
+        """
+            Renders html using template
+        """
         params['user'] = self.user
-        return render_str(template, **params)
+        return jinja_helper.render_str(template, **params)
 
     def render(self, template, **kw):
+        """
+            Writes the rendered content to browser
+        """
         self.write(self.render_str(template, **kw))
 
     def set_secure_cookie(self, name, val):
+        """
+            Set the secure cookie header
+        """
         cookie_val = make_secure_val(val)
         self.response.headers.add_header(
             'Set-Cookie',
             '%s=%s; Path=/' % (name, cookie_val))
 
     def read_secure_cookie(self, name):
+        """
+            Reads the secure cookie
+        """
         cookie_val = self.request.cookies.get(name)
         return cookie_val and check_secure_val(cookie_val)
 
     def login(self, user):
+        """
+            Sets the cookie at the time of login
+        """
         self.set_secure_cookie('user_id', str(user.key().id()))
 
     def logout(self):
+        """
+            Unset the cookie to null at the time of logout
+        """
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
 
     def initialize(self, *a, **kw):
+        """
+            Executed every time on all pages, that verifies login, logout, cookie
+        """
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
         self.user = uid and User.by_id(int(uid))
+
+
+# Main Page
 
 
 class MainPage(Handler):
 
     def get(self):
         self.render("index.html")
+
+# Signup handler
 
 
 class Signup(Handler):
@@ -241,32 +235,41 @@ def blog_key(name='default'):
     return db.Key.from_path('blogs', name)
 
 
-# def render_post(response, post):
-#     response.out.write('<b>' + post.subject + '</b><br>')
-#     response.out.write(post.content)
-
-
-class Post(db.Model):
-    subject = db.StringProperty(required=True)
-    content = db.TextProperty(required=True)
-    created = db.DateTimeProperty(auto_now_add=True)
-    last_modified = db.DateTimeProperty(auto_now=True)
-
-    def render(self):
-        self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p=self)
-
-
 class BlogFront(Handler):
 
     def get(self):
-        posts = greetings = Post.all().order('-created')
-        self.render('front.html', posts=posts)
+        """
+            Main Blog Page with all posts sorted
+        """
+        deleted_post_id = self.request.get('deleted_post_id')
+        posts = Post.all().order('-created')
+        self.render('front.html', posts=posts, deleted_post_id=deleted_post_id)
 
 
 class PostPage(Handler):
 
     def get(self, post_id):
+        """
+            Post Page with content and also comments and likes too.
+        """
+        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        post = db.get(key)
+
+        comments = db.GqlQuery(
+            "select * from Comment where post_id=" + post_id + " order by created desc")
+
+        likes = db.GqlQuery("select * from Like where post_id=" + post_id)
+
+        if not post:
+            self.error(404)
+            return
+        error = self.request.get('error')
+
+        self.render("permalink.html", post=post,
+                    no_of_likes=likes.count(),
+                    comments=comments, error=error)
+
+    def post(self, post_id):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
 
@@ -274,7 +277,48 @@ class PostPage(Handler):
             self.error(404)
             return
 
-        self.render("permalink.html", post=post)
+        """
+            On posting comment, new comment tuple is created and stored,
+            with relationship data of user and post.
+        """
+        c = ""
+        if(self.user):
+            # On clicking like, post-like value increases.
+            if(self.request.get('like') and
+               self.request.get('like') == "update"):
+                likes = db.GqlQuery("select * from Like where post_id = " +
+                                    post_id + " and user_id = " +
+                                    str(self.user.key().id()))
+
+                if self.user.key().id() == post.user_id:
+                    self.redirect("/blog/" + post_id +
+                                  "?error=You cannot like your " +
+                                  "post.!!")
+                    return
+                elif likes.count() == 0:
+                    l = Like(parent=blog_key(), user_id=self.user.key().id(),
+                             post_id=int(post_id))
+                    l.put()
+
+            # On commenting, it creates new comment tuple
+            if(self.request.get('comment')):
+                c = Comment(parent=blog_key(), user_id=self.user.key().id(),
+                            post_id=int(post_id),
+                            comment=self.request.get('comment'))
+                c.put()
+        else:
+            self.redirect("/login?error=You need to login before " +
+                          "performing edit, like or commenting.!!")
+            return
+
+        comments = db.GqlQuery("select * from Comment where post_id = " +
+                               post_id + "order by created desc")
+
+        likes = db.GqlQuery("select * from Like where post_id=" + post_id)
+
+        self.render("permalink.html", post=post,
+                    comments=comments, no_of_likes=likes.count(),
+                    new=c)
 
 
 class NewPost(Handler):
@@ -286,6 +330,9 @@ class NewPost(Handler):
             self.redirect("/login")
 
     def post(self):
+        """
+            Creates new post and redirects to it
+        """
         if not self.user:
             self.redirect('/login')
         else:
@@ -293,7 +340,8 @@ class NewPost(Handler):
             content = self.request.get('content')
 
             if subject and content:
-                p = Post(parent=blog_key(), subject=subject, content=content)
+                p = Post(parent=blog_key(), user_id=self.user.key().id(),
+                         subject=subject, content=content)
                 p.put()
                 self.redirect('/blog/%s' % str(p.key().id()))
             else:
@@ -302,41 +350,129 @@ class NewPost(Handler):
                             content=content, error=error)
 
 
-class EditPost(NewPost):
+class DeletePost(Handler):
 
-    def get(self):
+    def get(self, post_id):
         if self.user:
-            self.render("editpost.html")
-        else:
-            self.redirect('/login')
-
-    def post(self):
-        if not self.user:
-            self.redirect('login')
-        else:
-            subject = self.request.get('subject')
-            content = self.request.get('content')
-
-            if subject and content:
-                p = Post(parent=blog_key(), subject=subject, content=content)
-                p.put()
-                self.redirect('/blog/%s' % str(p.key().id()))
+            key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            post = db.get(key)
+            if post.user_id == self.user.key().id():
+                post.delete()
+                self.redirect("/?deleted_post_id=" + post_id)
+                # self.redirect("/blog")
             else:
-                error = "subject and content, please!"
-                self.render("newpost.html", subject=subject,
-                            content=content, error=error)
+                self.redirect("/login")
 
+
+class EditPost(Handler):
+
+    def get(self, post_id):
+        if self.user:
+            key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            post = db.get(key)
+            if post.user_id == self.user.key().id():
+                self.render("editpost.html", subject=post.subject,
+                            content=post.content)
+            else:
+                self.redirect("/blog/" + post_id +
+                              "/error=access denied")
+                # self.redirect("/login")
+        else:
+            self.redirect("/login?error=Login Please")
+            # self.redirect('/login')
+
+    def post(self, post_id):
+        """
+            Updates post
+        """
+        if not self.user:
+            self.redirect('/login')
+        subject = self.request.get('subject')
+        content = self.request.get('content')
+
+        if subject and content:
+            key = db.Key.from_path('Post', int(post_id),
+                                   parent=blog_key())
+            post = db.get(key)
+            post.subject = subject
+            post.content = content
+            post.put()
+            self.redirect('/blog/' + post_id)
+        else:
+            error = "subject and content, please!"
+            self.render("editpost.html", subject=subject,
+                        content=content, error=error)
+
+
+class DeleteComment(Handler):
+
+    def get(self, post_id, comment_id):
+        if self.user:
+            key = db.Key.from_path('Comment', int(comment_id),
+                                   parent=blog_key())
+            c = db.get(key)
+            if c.user_id == self.user.key().id():
+                c.delete()
+                self.redirect("/blog/" + post_id +
+                              "?deleted_comment_id=" + comment_id)
+            else:
+                self.redirect("/login?error=Login Please")
+                # self.redirect("/login")
+
+
+class EditComment(Handler):
+
+    def get(self, post_id, comment_id):
+        if self.user:
+            key = db.Key.from_path('Comment', int(comment_id),
+                                   parent=blog_key())
+            c = db.get(key)
+            if c.user_id == self.user.key().id():
+                self.render("editcomment.html", comment=c.comment)
+            else:
+                self.redirect("/blog/" + post_id +
+                              "?error=You don't have access to edit this " +
+                              "comment.")
+        else:
+            self.redirect("/login?error=You need to be logged, in order to" +
+                          " edit your post!!")
+
+    def post(self, post_id, comment_id):
+        """
+            Updates post.
+        """
+        if not self.user:
+            self.redirect('/blog')
+
+        comment = self.request.get('comment')
+
+        if comment:
+            key = db.Key.from_path('Comment',
+                                   int(comment_id), parent=blog_key())
+            c = db.get(key)
+            c.comment = comment
+            c.put()
+            self.redirect('/blog/%s' % post_id)
+        else:
+            error = "subject and content, please!"
+            self.render("editpost.html", subject=subject,
+                        content=content, error=error)
 
 ###################################################################
 
 
 app = webapp2.WSGIApplication([('/', Login),
-                               ('/signup', Register),
-                               ('/welcome', Welcome),
-                               ('/login', Login),
-                               ('/logout', Logout),
                                ('/blog/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
                                ('/blog/newpost', NewPost),
-                               ('/editpost', EditPost)],
+                               ('/blog/deletepost/([0-9]+)', DeletePost),
+                               ('/blog/editpost/([0-9]+)', EditPost),
+                               ('/blog/deletecomment/([0-9]+)/([0-9]+)',
+                                DeleteComment),
+                               ('/blog/editcomment/([0-9]+)/([0-9]+)',
+                                EditComment),
+                               ('/signup', Register),
+                               ('/welcome', Welcome),
+                               ('/login', Login),
+                               ('/logout', Logout)],
                               debug=True)

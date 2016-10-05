@@ -1,7 +1,18 @@
-<div class="container post-box animate-bottom">
-    <div class="content-flex">
-        <h2>{{p.subject}}</h2>
-        <h5 class="text-right">{{p.created.strftime("%b %d, %Y")}}</h5>
+<!-- <div class="container post-box animate-bottom">
+    <a href="/blog/{{p.key().id()}}#" style="text-decoration: none;">
+        <div class="content-flex">
+            <h5 class="text-right">{{p.created.strftime("%b %d, %Y")}} Posted By: {{p.getUserName()}}</h5>
+        </div>
+    </a>
+</div> -->
+<div class="row my-post">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 class="pull-left">
+        	<a href="/blog/{{p.key().id()}}#">{{p.subject}}</a>
+        </h2>
+        <h6 class="pull-right">Posted on {{p.created.strftime("%b %d, %Y")}} by <span class="text-capitalize">{{p.getUserName()}}</span></h6>
     </div>
-    <h4>{{p._render_text | safe}}</h4>
+    <div class="col-md-8 col-md-offset-2">
+        <p>{{p._render_text | safe}}</p>
+    </div>
 </div>

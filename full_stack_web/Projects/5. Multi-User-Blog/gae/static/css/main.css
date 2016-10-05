@@ -6,21 +6,6 @@ body {
     background: #f6f6f6;
 }
 
-.post-box {
-    background: white;
-    box-shadow: 0 0 1px #0f0f0f;
-}
-
-.post-box:hover {
-    box-shadow: 0 0 10px #6666ff;
-}
-
-.content-flex {
-    display: flex;
-    flex-wrap: row nowrap;
-    justify-content: space-between;
-}
-
 .navbar-border {
     border-radius: 0px;
     background: #fff;
@@ -30,27 +15,13 @@ body {
     color: black;
 }
 
-.error {
-    color: red;
-}
-
-.my-form {
-    margin: 0 auto;
-    margin-top: 50px;
-    max-width: 350px;
-    background: #fff;
-    padding: 30px;
+.my-post {
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 0.15px 0.15px #f9f9f9;
     border: 1px solid #e0e0e0;
 }
 
-/* @media screen and (max-width: 376px) {
-    .my-form {
-        background: #fff;
-        padding: 40px;
-        border: 1px solid #e0e0e0;
-    }
-}
- */
 
 /*Loading styles*/
 
