@@ -225,7 +225,7 @@ class Welcome(Handler):
         if self.user:
             self.render('welcome.html', username=self.user.name)
         else:
-            self.redirect('/signup')
+            self.redirect('/login')
 
 ################################################################
 # blog's here
@@ -286,14 +286,13 @@ class PostPage(Handler):
             # On clicking like, post-like value increases.
             if(self.request.get('like') and
                self.request.get('like') == "update"):
-                likes = db.GqlQuery("select * from Like where post_id = " +
-                                    post_id + " and user_id = " +
+                likes = db.GqlQuery("select * from Like where post_id= " +
+                                    post_id + " and user_id= " +
                                     str(self.user.key().id()))
 
                 if self.user.key().id() == post.user_id:
                     self.redirect("/blog/" + post_id +
-                                  "?error=You cannot like your " +
-                                  "post.!!")
+                                  "?error=postid")
                     return
                 elif likes.count() == 0:
                     l = Like(parent=blog_key(), user_id=self.user.key().id(),
@@ -358,8 +357,8 @@ class DeletePost(Handler):
             post = db.get(key)
             if post.user_id == self.user.key().id():
                 post.delete()
-                self.redirect("/?deleted_post_id=" + post_id)
-                # self.redirect("/blog")
+                # self.redirect("/?deleted_post_id=" + post_id)
+                self.redirect("/blog")
             else:
                 self.redirect("/login")
 
@@ -374,12 +373,12 @@ class EditPost(Handler):
                 self.render("editpost.html", subject=post.subject,
                             content=post.content)
             else:
-                self.redirect("/blog/" + post_id +
-                              "/error=access denied")
-                # self.redirect("/login")
+                # self.redirect("/blog/" + post_id +
+                #               "/error=access denied")
+                self.redirect("/login")
         else:
-            self.redirect("/login?error=Login Please")
-            # self.redirect('/login')
+            # self.redirect("/login?error=Login Please")
+            self.redirect('/login')
 
     def post(self, post_id):
         """
@@ -461,18 +460,19 @@ class EditComment(Handler):
 ###################################################################
 
 
-app = webapp2.WSGIApplication([('/', Login),
-                               ('/blog/?', BlogFront),
-                               ('/blog/([0-9]+)', PostPage),
-                               ('/blog/newpost', NewPost),
-                               ('/blog/deletepost/([0-9]+)', DeletePost),
-                               ('/blog/editpost/([0-9]+)', EditPost),
-                               ('/blog/deletecomment/([0-9]+)/([0-9]+)',
-                                DeleteComment),
-                               ('/blog/editcomment/([0-9]+)/([0-9]+)',
-                                EditComment),
-                               ('/signup', Register),
-                               ('/welcome', Welcome),
-                               ('/login', Login),
-                               ('/logout', Logout)],
-                              debug=True)
+app = webapp2.WSGIApplication([
+    ('/', BlogFront),
+    ('/blog', BlogFront),
+    ('/blog/([0-9]+)', PostPage),
+    ('/blog/newpost', NewPost),
+    ('/blog/deletepost/([0-9]+)', DeletePost),
+    ('/blog/editpost/([0-9]+)', EditPost),
+    ('/blog/deletecomment/([0-9]+)/([0-9]+)',
+     DeleteComment),
+    ('/blog/editcomment/([0-9]+)/([0-9]+)',
+     EditComment),
+    ('/signup', Register),
+    ('/welcome', Welcome),
+    ('/login', Login),
+    ('/logout', Logout)],
+    debug=True)
