@@ -227,9 +227,6 @@ class Welcome(Handler):
         else:
             self.redirect('/login')
 
-################################################################
-# blog's here
-
 
 def blog_key(name='default'):
     return db.Key.from_path('blogs', name)
@@ -357,8 +354,7 @@ class DeletePost(Handler):
             post = db.get(key)
             if post.user_id == self.user.key().id():
                 post.delete()
-                # self.redirect("/?deleted_post_id=" + post_id)
-                self.redirect("/blog")
+                self.redirect("/?deleted_post_id=" + post_id)
             else:
                 self.redirect("/login")
 
@@ -373,9 +369,9 @@ class EditPost(Handler):
                 self.render("editpost.html", subject=post.subject,
                             content=post.content)
             else:
-                # self.redirect("/blog/" + post_id +
-                #               "/error=access denied")
-                self.redirect("/login")
+                self.redirect("/blog/" + post_id +
+                              "/error=access denied")
+                # self.redirect("/login")
         else:
             # self.redirect("/login?error=Login Please")
             self.redirect('/login')

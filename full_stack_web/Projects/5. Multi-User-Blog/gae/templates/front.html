@@ -9,11 +9,21 @@
         {% endif %}
     </div>
 </div>
-{% for p in posts %}
-	{% if p.key().id()|string != deleted_post_id|string %}
-		<div class="row">
-		    {{ p.render() | safe }}
+{% if posts %}
+	{% for p in posts %}
+		{% if p.key().id()|string != deleted_post_id|string %}
+			<div class="row">
+			    {{ p.render() | safe }}
+			</div>
+		{% endif %}
+	{% endfor %}
+{% else %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-info" role="alert">
+			<span class="glyphicon glyphicon-exclamation-sign" area-hidden="true"></span> Please add the post
+			</div>
 		</div>
-	{% endif %}
-{% endfor %}
+	</div>
+{% endif %}
 {% endblock %}
