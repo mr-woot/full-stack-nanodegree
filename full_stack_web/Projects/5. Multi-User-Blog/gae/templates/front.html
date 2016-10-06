@@ -13,7 +13,9 @@
 	{% for p in posts %}
 		{% if p.key().id()|string != deleted_post_id|string %}
 			<div class="row">
-			    {{ p.render() | safe }}
+				<div class="col-md-12">
+					{{ p.render() | safe }}
+				</div>
 			</div>
 		{% endif %}
 	{% endfor %}

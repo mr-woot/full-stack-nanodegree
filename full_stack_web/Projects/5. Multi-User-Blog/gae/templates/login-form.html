@@ -19,6 +19,11 @@
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}
             </div>
             {% endif %}
+            {% if error2 %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error2}}
+            </div>
+            {% endif %}
             <button type="submit" class="btn btn-success center-block">Submit</button>
         </form>
     </div>

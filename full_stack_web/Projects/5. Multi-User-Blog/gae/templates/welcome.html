@@ -9,14 +9,14 @@
 	<script>
 	var myVar;
 	function myFunction() {
-		myVar = setTimeout(showPage, 4000)
+		myVar = setTimeout(showPage, 1500)
 	}
 	function showPage() {
 		document.getElementById("loader").style.display = "none";
 		document.getElementById("myDiv").style.display = "block";
 		setTimeout(function () {
 			window.location.href = "/blog"
-		}, 2000);
+		}, 500);
 	}
 </script>
 {% endblock %}

@@ -174,6 +174,8 @@ class Signup(Handler):
     def done(self, *a, **kw):
         raise NotImplementedError
 
+# Register User
+
 
 class Register(Signup):
 
@@ -190,16 +192,24 @@ class Register(Signup):
             self.login(u)
             self.redirect('/welcome')
 
+# Login module
+
 
 class Login(Handler):
 
     def get(self):
+        """
+            Checks if user cookie not available, then redirects to login page.
+        """
         if not self.user:
             self.render('login-form.html')
         else:
             self.redirect('/welcome')
 
     def post(self):
+        """
+            gets username, email and password attrs.
+        """
         username = self.request.get('username')
         password = self.request.get('password')
 
@@ -211,25 +221,40 @@ class Login(Handler):
             msg = 'Login Invalid'
             self.render('login-form.html', error=msg)
 
+# Logout module
+
 
 class Logout(Handler):
 
     def get(self):
+        """
+            logouts the session
+        """
         self.logout()
         self.redirect('/blog')
+
+# Welcome module
 
 
 class Welcome(Handler):
 
     def get(self):
+        """
+            Welcome the user when logged in(displayed only for 2 seconds)
+        """
         if self.user:
             self.render('welcome.html', username=self.user.name)
         else:
             self.redirect('/login')
 
 
+# Blog Parent key
+
+
 def blog_key(name='default'):
     return db.Key.from_path('blogs', name)
+
+# Front Blog module
 
 
 class BlogFront(Handler):
@@ -238,9 +263,15 @@ class BlogFront(Handler):
         """
             Main Blog Page with all posts sorted
         """
-        deleted_post_id = self.request.get('deleted_post_id')
-        posts = Post.all().order('-created')
-        self.render('front.html', posts=posts, deleted_post_id=deleted_post_id)
+        if not self.user:
+            self.redirect("/login")
+        else:
+            deleted_post_id = self.request.get('deleted_post_id')
+            posts = Post.all().order('-created')
+            self.render('front.html', posts=posts,
+                        deleted_post_id=deleted_post_id)
+
+# Post Page module
 
 
 class PostPage(Handler):
@@ -275,8 +306,8 @@ class PostPage(Handler):
             return
 
         """
-            On posting comment, new comment tuple is created and stored,
-            with relationship data of user and post.
+            On posting comment, new comment datastore object is created and stored,
+            with respect to each user and post.
         """
         c = ""
         if(self.user):
@@ -303,8 +334,7 @@ class PostPage(Handler):
                             comment=self.request.get('comment'))
                 c.put()
         else:
-            self.redirect("/login?error=You need to login before " +
-                          "performing edit, like or commenting.!!")
+            self.redirect("/login")
             return
 
         comments = db.GqlQuery("select * from Comment where post_id = " +
@@ -356,7 +386,9 @@ class DeletePost(Handler):
                 post.delete()
                 self.redirect("/?deleted_post_id=" + post_id)
             else:
-                self.redirect("/login")
+                self.redirect("/login?error=access denied")
+        else:
+            self.redirect("/login")
 
 
 class EditPost(Handler):
@@ -373,8 +405,7 @@ class EditPost(Handler):
                               "/error=access denied")
                 # self.redirect("/login")
         else:
-            # self.redirect("/login?error=Login Please")
-            self.redirect('/login')
+            self.render('login-form.html', error2="Need to Login Please..")
 
     def post(self, post_id):
         """
@@ -412,7 +443,8 @@ class DeleteComment(Handler):
                               "?deleted_comment_id=" + comment_id)
             else:
                 self.redirect("/login?error=Login Please")
-                # self.redirect("/login")
+        else:
+            self.redirect("/login")
 
 
 class EditComment(Handler):
