@@ -1,0 +1,11 @@
+<div class="row my-post">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 class="pull-left">
+            <a href="/blog/{{p.key().id()}}#">{{p.subject}}</a>
+        </h2>
+        <h6 class="pull-right">Posted on {{p.created.strftime("%b %d, %Y")}} by <span class="text-capitalize">{{p.getUserName()}}</span></h6>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        <p>{{p._render_text | safe}}</p>
+    </div>
+</div>

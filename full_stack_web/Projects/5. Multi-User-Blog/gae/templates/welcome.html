@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% block content %}
+	<div id="loader"></div>
+	{% if user %}
+		<div style="display: none;" id="myDiv" class="animate-bottom">
+			<h2 class="text-capitalize">Welcome, {{user.name}}!</h2>
+		</div>
+	{% endif %}
+	<script>
+	var myVar;
+	function myFunction() {
+		myVar = setTimeout(showPage, 1500)
+	}
+	function showPage() {
+		document.getElementById("loader").style.display = "none";
+		document.getElementById("myDiv").style.display = "block";
+		setTimeout(function () {
+			window.location.href = "/blog"
+		}, 500);
+	}
+</script>
+{% endblock %}

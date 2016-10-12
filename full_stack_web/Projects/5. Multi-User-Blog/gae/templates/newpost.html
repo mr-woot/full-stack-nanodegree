@@ -1,0 +1,27 @@
+{% extends "index.html" %} {% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-center">New-Post</h2>
+    </div>
+    <br>
+    <div class="col-md-8 col-md-offset-2">
+        <form method="post" role=form>
+            <div class="form-group">
+                <label class="text-center" for="subject">Subject:</label>
+                <input type="text" class="form-control" name="subject" value="{{subject}}" placeholder="Enter suject or title">
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea class="form-control" rows="10" name="content" placeholder="Enter content here" style="resize: none;">{{content}}</textarea>
+            </div>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="cancel" class="btn btn-danger" href="/blog">Cancel</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

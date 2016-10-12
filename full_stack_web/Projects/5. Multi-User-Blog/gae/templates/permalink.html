@@ -1,0 +1,46 @@
+{% extends "index.html" %} {% block content %}
+<div class="row">
+    <div class="col-md-12">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{error}}
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{post.render() | safe}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" role="form">
+            <a id="post-edit" class="btn btn-primary" href="/blog/editpost/{{post.key().id()}}">Edit</a>
+            <a id="post-delete" class="btn btn-danger" href="/blog/deletepost/{{post.key().id()}}">Delete</a>
+            <input type="hidden" class="form-control" name="like" value="update">
+            <button type="submit" class="btn btn-primary">Like {{no_of_likes}}</button>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <form method="post" role="form" class="comment-form">
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea type="text" class="form-control" id="comment" name="comment" rows="5" style="resize: none;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-12">
+        {% for c in comments %}
+        <blockquote>
+            <a class="btn btn-danger" href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
+            <a class="btn btn-primary" href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+            <p>{{ c.comment }}</p>
+            <footer>{{ c.getUserName() }}</footer>
+        </blockquote>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

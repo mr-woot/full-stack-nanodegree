@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form method="post">
+            <h3 class="text-center">Sign-Up</h3>
+            <br>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" name="username" value="{{username}}" placeholder="Enter username (5 to 20 characters)">
+                <div class="error">{{error_username}}</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" name="password" placeholder="Enter Password (5 to 20 characters)">
+                <div class="error">{{error_password}}</div>
+            </div>
+            <div class="form-group">
+                <label for="verify">Verify Password:</label>
+                <input type="password" class="form-control" name="verify" placeholder="Enter password again">
+                <div class="error">{{error_verify}}</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" value="{{email}}" placeholder="Enter email">
+                <div class="error">{{error_email}}</div>
+            </div>
+            <button type="submit" class="btn btn-default center-block">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

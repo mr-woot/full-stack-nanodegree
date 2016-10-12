@@ -1,0 +1,7 @@
+{% extends "index.html" %}
+{% block content %}
+<form method="post">
+    <textarea name="comments" placeholder="Comment here!"></textarea>
+    <div class="error">{{comment_error}}</div>
+</form>
+{% endblock %}
