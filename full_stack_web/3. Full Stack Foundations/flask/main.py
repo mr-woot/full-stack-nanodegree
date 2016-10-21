@@ -9,17 +9,37 @@ Base = declarative_base()
 # Table class
 
 
-class Table(Base):
+class Shelter(Base):
     """Table Class that defines the attributes of the table
             in sqlalchemy.
     """
-    __tablename__ = 'tablename'
+    __tablename__ = 'shelter'
 
     # Column declarations here
     id = Column(Integer, primary_key=True)
-    col1 = Column(String(80), nullable=False)
-    col2 = Column(String(250))
-    col3 = Column(String)
+    name = Column(String(80), nullable=False)
+    address = Column(String(250))
+    city = Column(String(80))
+    state = Column(String(20))
+    zipCode = Column(String(10))
+    website = Column(String)
+
+
+class Puppy(Base):
+    """Table Class that defines the attributes of the table
+            in sqlalchemy.
+    """
+    __tablename__ = 'puppy'
+
+    # Column declarations here
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    gender = Column(String(6), nullable=False)
+    dateOfBirth = Column(Date)
+    picture = Column(String)
+    shelter_id = Column(Integer, ForeignKey('shelter.id'))
+    shelter = relationship(Shelter)
+    weight = Column(Numeric(10))
 
 # Creates the engine
 engine = create_engine('sqlite:///main.db')
