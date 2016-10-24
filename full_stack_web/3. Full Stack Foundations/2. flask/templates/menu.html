@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE = edge">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <title>Item Catalog</title>
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src = "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src = "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered">
+                    <h3 class="text-center">{{restaurant.name}}</h3>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Course</th>
+                            <td>Edit</td>
+                            <td>Delete</td>
+                        </tr>
+                    </thead>{% for i in items %}
+                    <tbody>
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td>{{i.price}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.course}}</td>
+                            <td><a href="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                            <td><a href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=i.id)}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                        </tr>
+                    </tbody>{% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/restaurant/{{restaurant.id}}/new" class="btn btn-success center-block">Create New Item</a>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
