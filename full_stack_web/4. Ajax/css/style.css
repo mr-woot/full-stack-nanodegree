@@ -1,0 +1,53 @@
+* {
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /*border: 1px solid red;*/
+}
+
+
+/*body {background-color: #FFF;}*/
+
+
+/* label focus color */
+
+.input-field input:focus + label {
+    color: black !important;
+}
+
+
+/* label underline focus color */
+
+.row .input-field input:focus {
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 1px 0 0 black !important
+}
+
+.bgimg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    opacity: 1;
+}
+
+.greeting {
+    color: black;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, .5);
+    text-align: center;
+}
+
+.wikipedia-container {}
+
+.nytimes-container {}
+
+.article-list {}
+
+.article {}
+
+.section-container > * {
+    display: flex;
+    justify-content: space-around;
+}
