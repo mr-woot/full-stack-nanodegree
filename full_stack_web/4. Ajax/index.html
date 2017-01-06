@@ -18,9 +18,9 @@
 
 <body>
     <header>
-        <br>
         <div class="row">
             <form class="col s8 offset-s2" id="form-container">
+                <!-- <div class="card-panel"> -->
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="street" type="text" class="validate">
@@ -34,22 +34,23 @@
                 <button class="btn waves-effect waves-light blue" type="submit" name="action">Search
                     <i class="material-icons right">search</i>
                 </button>
+                <!-- </div> -->
             </form>
         </div>
     </header>
-    <hr>
     <section>
-        <h2 id="greeting" class="greeting">Where do you want to live?</h2>
+        <div class="card-panel">
+            <h4 id="greeting" class="greeting">Where do you want to live?</h4></div>
         <div class="row section-container">
             <div class="col s6">
                 <div class="wikipedia-container">
-                    <h3 id="wikipedia-header">Relevant Wikipedia Links</h3>
+                    <h5 id="wikipedia-header">Relevant Wikipedia Links</h5>
                     <ul id="wikipedia-links">Type in an address above and find relevant Wikipedia articles here!</ul>
                 </div>
             </div>
             <div class="col s4 push-s1">
                 <div class="nytimes-container">
-                    <h3 id="nytimes-header">New York Times Articles</h3>
+                    <h5 id="nytimes-header">New York Times Articles</h5>
                     <ul id="nytimes-articles" class="article-list">What's going on in your new city? Enter an address and hit submit and the NY Times will tell you here!</ul>
                 </div>
             </div>

@@ -19,22 +19,5 @@
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{song.youtube_url}}" target="_blank">Listen</a>
     </div>
   </div>
-  <!-- temporarily removing, may bring back later
-  <script>
-    // get youtube id from song.youtube_url
-    url = "{{song.youtube_url}}";
-    youtubeIdMatch = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-    console.log(youtubeIdMatch[1]);
-    var playerId = 'ytplayer' + '{{song.id}}';
-    console.log(playerId);
-    $(document).ready(function() {
-      var player = new YT.Player(playerId, {
-        height: '390',
-        width: '640',
-        videoId: youtubeIdMatch[1]
-      });
-    });
-  </script>
-  -->
   {% endfor %} {% endblock %}
 </div>

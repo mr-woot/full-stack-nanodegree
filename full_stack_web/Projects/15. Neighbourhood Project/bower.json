@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "mr-woot <tusharmudgal3@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/mr-woot/twitterClone",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "^3.4.1"
+  }
+}
