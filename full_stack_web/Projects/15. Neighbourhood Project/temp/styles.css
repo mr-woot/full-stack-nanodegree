@@ -1,17 +1,104 @@
+/**************************************************
+
+ **Coded By: Tushar Mudgal (aka mr-woot: @github)**
+
+ **************************************************/
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    font-family: 'Lato', sans-serif;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: url(/images/bg.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
+#map {
+    height: 100vh;
+    width: 100%;
+}
+
+ul {
+    margin-top: 0;
+    border-top: 1px solid black;
+    width: 300px;
+    max-width: 300px;
+    padding: 23px;
+    list-style-type: none;
+    background-color: white;
+}
+
+li {
+    margin: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.searchBox .container-1 {
+    width: 300px;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+}
+
+.searchBox {
+    width: 400px;
+    height: 30px;
+    font-size: 1.1em;
+    border: none;
+    z-index: 2;
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    opacity: 0.6;
+}
+.searchBox:hover {
+    opacity: unset;
+}
+
+.searchContainer {
+    width: 300px;
+    vertical-align: middle;
+    white-space: nowrap;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.searchContainer input#search {
+    min-width: 300px;
+    height: 40px;
+    background: white;
+    border: none;
+    font-size: 0.8em;
+    margin-top: 16px;
+    float: right;
+    color: #63717f;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 1px;
+}
+
+.infoWindow {
+    height: auto;
+    width: auto;
+}
+
+.infoWindow .content {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    width: 200px;
+}
+
+.infoWindow>* {
+    text-align: center;
+}
+
+.infoWindow .content img {
+    margin: 0 auto;
+    height: 150px;
+    width: 150px;
+}
+
+.content {
+    margin: 10px 0;
+}

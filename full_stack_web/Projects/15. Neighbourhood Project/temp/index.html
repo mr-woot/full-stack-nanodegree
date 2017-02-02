@@ -17,15 +17,28 @@
 
 <body>
     <!-- TEMPLATES START -->
-
+    <div class="searchBox">
+        <div class="searchContainer">
+            <label for="search"></label>
+            <input type="input" id="search" data-bind="textInput: query" placeholder="Search... " />
+            <ul class="list" data-bind="foreach: locationsList">
+                <li data-bind="text: name, click: $parent.clickInfoContent, visible: visibility"></li>
+            </ul>
+        </div>
+    </div>
+    <div id="map"></div>
     <!-- TEMPLATES END -->
 
     <!-- vendorInject:js -->
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/jquery-ui.js"></script>
     <script src="vendor/knockout.js"></script>
     <!-- endinject -->
     <!-- inject:js -->
-    <script src="app.js"></script>
+    <script src="index.js"></script>
     <!-- endinject -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcCz7RhBVbe7WKJ9LN_DLqPd6BVN8kxko&callback=initMap" onerror="googleError()">
+    </script>
 </body>
 
 </html>

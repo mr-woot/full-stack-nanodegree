@@ -11,7 +11,7 @@ var paths = {
 
     index: 'app/index.html',
     appSrc: ['app/**/*', '!app/index.html'],
-    bowerSrc: 'bower_components/**/*'
+    bowerSrc: ['bower_components/**/*', 'bower_components/**/*.css']
 }
 
 gulp.task('default', ['watch']);

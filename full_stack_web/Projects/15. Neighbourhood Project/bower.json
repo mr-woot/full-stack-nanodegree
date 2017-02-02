@@ -6,7 +6,7 @@
     "mr-woot <tusharmudgal3@gmail.com>"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/mr-woot/twitterClone",
+  "homepage": "https://github.com/mr-woot/map-project-5-fsnd",
   "private": true,
   "ignore": [
     "**/.*",
@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
     "knockout": "^3.4.1"
   }
 }

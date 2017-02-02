@@ -31,6 +31,5 @@
   },
   "_source": "https://github.com/SteveSanderson/knockout.git",
   "_target": "^3.4.1",
-  "_originalSource": "knockout",
-  "_direct": true
+  "_originalSource": "knockout"
 }
