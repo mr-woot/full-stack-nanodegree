@@ -1,3 +1,3 @@
 # Full Stack Nanodegree - Udacity
 
-FSND Assignments and Projects
+Full Stack Nanodegree Assignments and Projects
